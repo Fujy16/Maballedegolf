@@ -54,6 +54,7 @@ export function initEmail(slot, reco, profil) {
 
     setMsg(msg, "Envoi…", "info");
     try {
+      let mode = "simple";
       if (EMAIL_CONFIG.enabled && EMAIL_CONFIG.endpoint) {
         const res = await fetch(EMAIL_CONFIG.endpoint, {
           method: "POST",
@@ -61,12 +62,20 @@ export function initEmail(slot, reco, profil) {
           body: JSON.stringify(payload),
         });
         if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json().catch(() => ({}));
+        if (data.mode) mode = data.mode;
       } else {
         console.warn("[email] Brevo non connecté (EMAIL_CONFIG.enabled=false) — mode démonstration.", payload);
         await new Promise((r) => setTimeout(r, 400));
       }
       form.querySelector("button").disabled = true;
-      setMsg(msg, "✓ Vérifiez votre boîte mail pour confirmer votre inscription.", "ok");
+      setMsg(
+        msg,
+        mode === "doi"
+          ? "✓ Vérifiez votre boîte mail pour confirmer votre inscription."
+          : "✓ C'est noté, merci ! Vos fiches détaillées arrivent par e-mail.",
+        "ok"
+      );
     } catch (err) {
       console.error("[email] échec de l'envoi", err);
       setMsg(msg, "Envoi impossible pour l'instant. Réessayez plus tard.", "err");
