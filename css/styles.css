@@ -89,7 +89,7 @@ strong { font-weight: 600; }
 /* Bouton menu (burger) — visible uniquement sur mobile, injecté par js/nav.js */
 .nav-toggle { display: none; }
 
-@media (max-width: 560px) {
+@media (max-width: 768px) {
   .nav-toggle {
     display: inline-flex; flex-direction: column; justify-content: center; gap: 5px;
     width: 42px; height: 42px; margin-left: auto; padding: 0;
