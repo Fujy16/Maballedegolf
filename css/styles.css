@@ -189,10 +189,18 @@ strong { font-weight: 600; }
 
 .aspiration { font-size: 14px; color: var(--craie-muet); font-style: italic; margin-top: 10px; }
 
+/* Aperçu verrouillé : le détail part par e-mail */
+.card .locked { margin-top: 16px; border-left: 2px solid var(--signal); padding: 12px 0 12px 16px; }
+.card .locked-k { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--signal); }
+.card .locked-k::before { content: "🔒 "; }
+.card .locked-v { display: block; font-size: 14px; color: var(--craie-muet); margin-top: 6px; line-height: 1.5; }
+
 .option-a { background: var(--charbon-2); border: 0.5px dashed var(--trait-fort); border-radius: var(--radius); padding: 20px 24px; }
 
 /* Bloc « aller plus loin » (séparé du fitting) */
 .aller-plus-loin { margin-top: 40px; border-top: 0.5px solid var(--trait); padding-top: 28px; }
+/* CTA e-mail mis en avant : c'est désormais l'étape clé pour obtenir le détail */
+.aller-plus-loin.recevoir { background: var(--charbon-2); border: 0.5px solid var(--signal); border-radius: var(--radius); padding: 24px; margin-top: 24px; }
 
 /* =============================================================================
    Pied de page

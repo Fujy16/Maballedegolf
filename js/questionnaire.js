@@ -218,10 +218,9 @@ function wireSpeed() {
 function finish() {
   elProgress.style.width = "100%";
   const r = recommander(profil);
-  const registre = profil.niveau === "conf" ? "confirme" : "debutant";
   elQuiz.hidden = true;
   elResults.hidden = false;
-  elResults.innerHTML = renderResults(r, registre);
+  elResults.innerHTML = renderResults(r);
   initEmail(document.getElementById("email-slot"), r, { ...profil });
   document.getElementById("refaire")?.addEventListener("click", restart);
   window.scrollTo({ top: 0, behavior: "auto" });
@@ -235,106 +234,58 @@ function restart() {
   showQuestion("q1");
 }
 
-// --- Rendu d'une fiche balle -------------------------------------------------
-
-const PROFIL_LABEL = { 1: "Distance & tolérance", 2: "Polyvalente", 3: "Contrôle" };
-const NIV3 = { bas: "Bas", moy: "Moyen", haut: "Élevé" };
-const LAUNCH3 = { bas: "Bas", moy: "Moyen", haut: "Haut" };
-
-function vitLabel(vit) {
-  const v = [...vit].sort();
-  return "V" + (v.length > 1 ? `${v[0]}–V${v[v.length - 1]}` : v[0]);
-}
+// --- Rendu d'une carte balle (aperçu) ----------------------------------------
+// La page n'affiche plus le détail (prose, specs, encadré) : il est réservé à la
+// fiche envoyée par e-mail. Les cartes restent un aperçu crédible (nom + méta).
 
 function balleMeta(b) {
   const annee = b.annee ? `${b.annee} · ` : "";
   return `${annee}${b.coverLabel} · ${b.construction} couches · ${PRIX_SYMBOLE[b.prix]}`;
 }
 
-function specs(b) {
-  return `<div class="specs">
-    <div class="spec"><div class="k">Enveloppe</div><div class="v">${b.coverLabel}</div></div>
-    <div class="spec"><div class="k">Compression</div><div class="v">${b.compression}</div></div>
-    <div class="spec"><div class="k">Lancement</div><div class="v">${LAUNCH3[b.launch]}</div></div>
-    <div class="spec"><div class="k">Effet au green</div><div class="v">${NIV3[b.spin]}</div></div>
-    <div class="spec"><div class="k">Profil</div><div class="v">${[...b.profil].map((p) => PROFIL_LABEL[p]).join(" / ")}</div></div>
-    <div class="spec"><div class="k">Vitesse cible</div><div class="v">${vitLabel(b.vit)}</div></div>
-  </div>`;
-}
-
-// Texte de fiche : la prose rédigée si elle existe, sinon un repli qualitatif
-// (provisoire, sans chiffre inventé) en attendant la rédaction des 57 fiches.
-function ficheTexte(b, registre) {
-  if (b.fiche && b.fiche[registre]) return `<p>${b.fiche[registre].replace(/\n\n/g, "</p><p>")}</p>`;
-  return repli(b, registre);
-}
-
-function repli(b, registre) {
-  const ure = b.cover === "ure";
-  const douce = b.sens === "soft", ferme = b.sens === "firm";
-  const sens = douce ? "douce" : ferme ? "ferme et réactive" : "équilibrée";
-  const orient = b.profil.includes(3) ? "le contrôle près du green" : b.profil.includes(1) ? "la distance et la tolérance" : "la polyvalence";
-  const greenTxt = b.spin === "haut" ? "elle accroche le green et s'arrête" : b.spin === "moy" ? "elle offre un arrêt modéré sur le green" : "elle privilégie le roulement, prévisible";
-  const vit = vitLabel(b.vit);
-  if (registre === "confirme") {
-    return `<p>Construction ${b.construction} couches, enveloppe ${ure ? "uréthane" : "ionomer"}, compression ${b.compression}. Centre de gravité ${vit}, orientée vers ${orient}.</p>
-      <p>Au green, ${greenTxt} ; au driver, l'effet est ${NIV3[b.dspin].toLowerCase()}. Sensation ${sens}. <em>Fiche détaillée à venir.</em></p>`;
-  }
-  return `<p>Une balle ${sens}, pensée pour ${orient}. Près du green, ${greenTxt}.</p>
-    <p>Adaptée à votre catégorie de vitesse (${vit}). <em>La fiche complète vous sera envoyée par e-mail.</em></p>`;
-}
-
-function carte(role, roleClass, b, registre, lead, extra = "") {
+function carte(role, b, lead, extra = "") {
   return `<article class="card${lead ? " lead" : ""}">
     <div class="role"><span class="pip" style="width:8px;height:8px;background:var(--signal);display:inline-block"></span>${role}</div>
     <h2 class="ball-name">${b.marque} ${b.nom}</h2>
     <div class="ball-meta">${balleMeta(b)}</div>
-    <div class="ball-text">${ficheTexte(b, registre)}</div>
     ${extra}
-    ${specs(b)}
-    <div class="encadre"><div class="k">Comprendre votre balle</div><div class="v">${encadre(b)}</div></div>
+    <div class="locked">
+      <span class="locked-k">Comprendre cette balle</span>
+      <span class="locked-v">Pourquoi elle correspond à votre jeu, ses caractéristiques détaillées et comment en tirer le meilleur — dans votre fiche, par e-mail.</span>
+    </div>
   </article>`;
 }
 
-function encadre(b) {
-  if (b.fiche && b.fiche.encadre) return b.fiche.encadre;
-  const cover = b.cover === "ure"
-    ? "<strong>Uréthane</strong> : l'enveloppe haut de gamme, plus tendre, qui « accroche » sur les wedges et fait mordre la balle au green."
-    : "<strong>Ionomer (Surlyn)</strong> : une enveloppe plus résistante et prévisible, qui privilégie la durabilité et le roulement plutôt que l'effet.";
-  const comp = "<strong>Compression</strong> : la dureté du cœur de la balle. Plus elle est basse, moins il faut taper vite pour bien la « comprimer » et en tirer toute la distance.";
-  return `${cover}<br><br>${comp}`;
-}
-
-function renderResults(r, registre) {
+function renderResults(r) {
   let cards = "";
   if (r.conflit) {
-    cards += carte("Votre balle idéale — pour votre jeu actuel", "lead", r.ideale, registre, true);
-    cards += carte("Votre référence contrôle", "", r.alternative, registre, false,
+    cards += carte("Votre balle idéale — pour votre jeu actuel", r.ideale, true);
+    cards += carte("Votre référence contrôle", r.alternative, false,
       `<p class="aspiration">Si vous voulez faire évoluer votre jeu vers une balle qui mord le green, c'est la direction à viser — l'aspiration, quand vos approches lèveront davantage.</p>`);
   } else {
-    cards += carte("Votre balle idéale", "lead", r.ideale, registre, true);
-    cards += carte("Une belle alternative", "", r.alternative, registre, false);
+    cards += carte("Votre balle idéale", r.ideale, true);
+    cards += carte("Une belle alternative", r.alternative, false);
   }
 
   if (r.optionA) {
     cards += `<div class="option-a"><div class="role" style="margin-bottom:8px"><span class="pip" style="width:8px;height:8px;background:var(--signal);display:inline-block"></span>Le choix malin</div>
       <p style="margin:0">Votre balle idéale est <strong>déjà le meilleur rapport qualité-prix du marché</strong>. Inutile de chercher moins cher : vous l'avez.</p></div>`;
   } else if (r.malin) {
-    cards += carte("Le choix malin", "", r.malin, registre, false);
+    cards += carte("Le choix malin", r.malin, false);
   }
 
   return `
     <div class="result-head wrap">
       <div class="kicker"><span class="pip"></span>Votre recommandation</div>
       <h1 style="margin-top:12px">Vos balles, choisies sans parti pris.</h1>
-      <p class="muet">D'après vos réponses, parmi les 57 modèles du catalogue. Aucune marque ne nous rémunère.</p>
+      <p class="muet">D'après vos réponses, parmi les 57 modèles du catalogue. Aucune marque ne nous rémunère. Le détail de chaque balle vous est envoyé par e-mail.</p>
     </div>
     <div class="wrap"><div class="cards">${cards}</div>
 
-      <div class="aller-plus-loin">
-        <div class="kicker"><span class="pip"></span>Pour ne rien oublier</div>
-        <h2 style="margin-top:12px">Recevez vos fiches détaillées par e-mail</h2>
-        <p class="muet">Les deux registres de lecture, l'encadré « comprendre votre balle » et mes conseils pour l'adopter durablement. Gratuit, sans engagement.</p>
+      <div class="aller-plus-loin recevoir" id="recevoir">
+        <div class="kicker"><span class="pip"></span>La suite, par e-mail</div>
+        <h2 style="margin-top:12px">Recevez la fiche complète de vos balles</h2>
+        <p class="muet">Pour chacune : pourquoi elle correspond à votre jeu, ses caractéristiques détaillées et l'encadré « comprendre votre balle » pour bien l'adopter. Gratuit, sans engagement.</p>
         <div id="email-slot"></div>
       </div>
 
