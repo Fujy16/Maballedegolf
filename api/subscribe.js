@@ -19,7 +19,7 @@ import { FICHES } from "../data/fiches.js";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const BY_ID = Object.fromEntries(CATALOGUE.map((b) => [b.id, b]));
-const SITE_URL = "https://maballedegolf.vercel.app";
+const SITE_URL = "https://www.maballedegolf.com";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
@@ -169,7 +169,7 @@ function emailHtml(recoIds, registre, conflit) {
     &nbsp;&nbsp;<a href="${SITE_URL}/educatif.html" style="color:#C2431F;font-size:14px">Pourquoi la balle compte ?</a>
   </td></tr>
   <tr><td style="background:#f4f2ec;padding:18px 24px;font-size:12px;line-height:1.6;color:#8a8a82">
-    Vous recevez cet e-mail car vous avez demandé vos fiches sur maballedegolf.vercel.app.
+    Vous recevez cet e-mail car vous avez demandé vos fiches sur maballedegolf.com.
     Pour ne plus en recevoir, écrivez à <a href="mailto:amaurydumasjarousse@azurgolfcoaching.fr" style="color:#C2431F">amaurydumasjarousse@azurgolfcoaching.fr</a>.<br>
     © Ma Balle de Golf — Amaury Dumas-Jarousse, enseignant de golf indépendant.
   </td></tr>
