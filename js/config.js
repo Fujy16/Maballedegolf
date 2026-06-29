@@ -16,10 +16,9 @@
 
 export const EMAIL_CONFIG = {
   service: "brevo",
-  enabled: false,
-  endpoint: "",          // URL du relais serverless ou de l'action Brevo
-  listId: null,          // identifiant de la liste DOI Brevo, si pertinent
-  doubleOptIn: true,     // toujours true (conformité RGPD)
+  enabled: false,             // passera à true une fois Brevo + Vercel configurés
+  endpoint: "/api/subscribe", // relais serverless Vercel (api/subscribe.js)
+  doubleOptIn: true,          // toujours true (conformité RGPD)
 };
 
 // Liens vers les offres d'Amaury — à remplir plus tard (page À propos, e-mails,
