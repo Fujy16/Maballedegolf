@@ -96,7 +96,7 @@ strong { font-weight: 600; }
   cursor: pointer; text-decoration: none; transition: background .15s, transform .05s, border-color .15s;
 }
 .btn:active { transform: scale(0.985); }
-.btn-primary { background: var(--signal); color: #161719; }
+.btn-primary { background: var(--signal); color: #ffffff; }
 .btn-primary:hover { background: var(--signal-clair); }
 .btn-ghost { background: transparent; color: var(--craie); border-color: var(--trait-fort); }
 .btn-ghost:hover { background: var(--charbon-3); }
