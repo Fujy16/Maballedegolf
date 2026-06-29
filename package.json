@@ -1,0 +1,10 @@
+{
+  "name": "maballedegolf",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ma Balle de Golf — fitting de balle multimarque indépendant (site statique).",
+  "type": "module",
+  "scripts": {
+    "verify": "node tools/verify_moteur.js"
+  }
+}

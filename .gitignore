@@ -1,0 +1,11 @@
+# OS
+.DS_Store
+
+# Réglages locaux de Claude Code (par machine)
+.claude/settings.local.json
+
+# Documents de conception internes (non publiés)
+maballedegolf zip/
+
+# Dépendances (aucune pour l'instant, mais au cas où)
+node_modules/

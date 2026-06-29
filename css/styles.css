@@ -1,0 +1,216 @@
+/* =============================================================================
+   Ma Balle de Golf — Design system « Le Labo » (DA C)
+   Charbon · craie · signal orange · Archivo + IBM Plex Mono.
+   Sur-mesure, sans dépendance runtime (zéro flash). Lisible 50-70 ans.
+   ============================================================================= */
+
+:root {
+  /* Couleurs */
+  --charbon:        #161719;   /* fond principal */
+  --charbon-2:      #1E2023;   /* surface élevée (cartes) */
+  --charbon-3:      #26282C;   /* surface survol / champs */
+  --craie:          #ECEBE6;   /* texte principal */
+  --craie-muet:     #9D9D95;   /* texte secondaire (contraste relevé p/ seniors) */
+  --craie-faible:   #6E6E68;   /* hints */
+  --signal:         #E8552D;   /* accent */
+  --signal-clair:   #F2724E;   /* survol accent */
+  --signal-sombre:  #C2431F;
+  --trait:          rgba(236, 235, 230, 0.14);
+  --trait-fort:     rgba(236, 235, 230, 0.28);
+  --vert-ok:        #6BBF8A;
+
+  /* Typo */
+  --font-display: "Archivo", system-ui, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Layout */
+  --max:    760px;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--charbon);
+  color: var(--craie);
+  font-family: var(--font-display);
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 { font-weight: 600; line-height: 1.14; margin: 0 0 0.5em; letter-spacing: -0.01em; }
+h1 { font-size: clamp(28px, 6vw, 44px); }
+h2 { font-size: clamp(22px, 4vw, 30px); }
+h3 { font-size: 19px; }
+p  { margin: 0 0 1rem; }
+a  { color: inherit; }
+strong { font-weight: 600; }
+
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 20px; }
+
+/* --- Étiquette mono (sur-titres, kicker) --- */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--signal);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.kicker .pip { width: 8px; height: 8px; background: var(--signal); display: inline-block; }
+
+.muet  { color: var(--craie-muet); }
+.center { text-align: center; }
+
+/* --- En-tête --- */
+.site-header {
+  border-bottom: 0.5px solid var(--trait);
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(22, 23, 25, 0.86);
+  backdrop-filter: blur(8px);
+}
+.site-header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand { display: flex; flex-direction: column; line-height: 1.1; text-decoration: none; }
+.brand .name { font-weight: 600; font-size: 17px; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px; }
+.brand .name .pip { width: 9px; height: 9px; background: var(--signal); display: inline-block; }
+.brand .sig { font-family: var(--font-mono); font-size: 10.5px; color: var(--craie-muet); letter-spacing: 0.04em; margin-top: 3px; }
+.nav { display: flex; gap: 22px; }
+.nav a { font-size: 14px; color: var(--craie-muet); text-decoration: none; }
+.nav a:hover { color: var(--craie); }
+@media (max-width: 560px) { .nav { display: none; } }
+
+/* --- Boutons --- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  font-family: var(--font-display); font-size: 16px; font-weight: 600;
+  padding: 15px 26px; border-radius: var(--radius-sm); border: 0.5px solid transparent;
+  cursor: pointer; text-decoration: none; transition: background .15s, transform .05s, border-color .15s;
+}
+.btn:active { transform: scale(0.985); }
+.btn-primary { background: var(--signal); color: #161719; }
+.btn-primary:hover { background: var(--signal-clair); }
+.btn-ghost { background: transparent; color: var(--craie); border-color: var(--trait-fort); }
+.btn-ghost:hover { background: var(--charbon-3); }
+.btn-lg { font-size: 18px; padding: 17px 32px; }
+.btn-block { display: flex; width: 100%; }
+
+/* --- Chiffres-chocs --- */
+.stats { border-top: 0.5px solid var(--trait); margin-top: 6px; }
+.stat-row { display: flex; gap: 16px; align-items: baseline; padding: 16px 0; border-bottom: 0.5px solid var(--trait); }
+.stat-row .num { font-family: var(--font-mono); font-weight: 600; font-size: 30px; color: var(--signal); min-width: 96px; letter-spacing: -0.02em; }
+.stat-row .lab { font-size: 15px; color: var(--craie-muet); line-height: 1.4; }
+
+/* --- Section --- */
+.section { padding: 56px 0; }
+.section-sm { padding: 36px 0; }
+.divider { border: none; border-top: 0.5px solid var(--trait); margin: 0; }
+
+/* =============================================================================
+   Questionnaire
+   ============================================================================= */
+.progress { height: 4px; background: var(--charbon-3); }
+.progress > span { display: block; height: 100%; background: var(--signal); transition: width .35s ease; }
+
+.q-screen { min-height: calc(100vh - 64px - 4px); display: flex; flex-direction: column; justify-content: center; padding: 32px 20px 48px; }
+.q-inner { max-width: 640px; margin: 0 auto; width: 100%; }
+.q-step { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; color: var(--craie-muet); text-transform: uppercase; margin-bottom: 14px; }
+.q-step b { color: var(--signal); font-weight: 600; }
+.q-title { font-size: clamp(22px, 4.5vw, 30px); font-weight: 600; line-height: 1.18; margin-bottom: 10px; }
+.q-sub { color: var(--craie-muet); font-size: 15.5px; margin-bottom: 26px; }
+
+.options { display: flex; flex-direction: column; gap: 12px; }
+.option {
+  display: flex; align-items: center; gap: 16px; width: 100%; text-align: left;
+  background: var(--charbon-2); color: var(--craie);
+  border: 0.5px solid var(--trait); border-radius: var(--radius);
+  padding: 18px 20px; cursor: pointer; font-family: var(--font-display); font-size: 17px;
+  transition: border-color .12s, background .12s, transform .05s;
+}
+.option:hover { border-color: var(--trait-fort); background: var(--charbon-3); }
+.option:active { transform: scale(0.995); }
+.option.sel { border-color: var(--signal); background: rgba(232, 85, 45, 0.08); }
+.option .tag { font-family: var(--font-mono); font-weight: 600; color: var(--signal); font-size: 15px; min-width: 22px; }
+.option .body { display: flex; flex-direction: column; gap: 3px; }
+.option .body .t { font-weight: 500; }
+.option .body .d { font-size: 13.5px; color: var(--craie-muet); }
+
+.q-skip { margin-top: 18px; }
+.q-skip button, .q-link button {
+  background: none; border: none; color: var(--craie-muet); font-family: var(--font-display);
+  font-size: 14px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; padding: 6px 0;
+}
+.q-skip button:hover, .q-link button:hover { color: var(--craie); }
+
+.q-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; }
+.q-back { background: none; border: none; color: var(--craie-muet); font-family: var(--font-display); font-size: 14px; cursor: pointer; display: inline-flex; gap: 6px; align-items: center; }
+.q-back:hover { color: var(--craie); }
+
+/* Saisie vitesse (chemin avancé Q1) */
+.speed-box { margin-top: 16px; padding: 18px; border: 0.5px solid var(--trait); border-radius: var(--radius); background: var(--charbon-2); }
+.speed-box input, .speed-box select {
+  font-family: var(--font-mono); font-size: 16px; background: var(--charbon); color: var(--craie);
+  border: 0.5px solid var(--trait-fort); border-radius: var(--radius-sm); padding: 12px 14px;
+}
+.speed-box input { width: 110px; }
+
+/* =============================================================================
+   Résultats
+   ============================================================================= */
+.result-head { padding: 36px 0 8px; }
+.cards { display: flex; flex-direction: column; gap: 16px; }
+.card {
+  background: var(--charbon-2); border: 0.5px solid var(--trait); border-radius: var(--radius); padding: 24px;
+}
+.card.lead { border-color: var(--signal); }
+.card .role { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--signal); display: flex; align-items: center; gap: 8px; }
+.card .ball-name { font-size: 24px; font-weight: 600; margin: 8px 0 2px; letter-spacing: -0.01em; }
+.card .ball-meta { font-family: var(--font-mono); font-size: 12.5px; color: var(--craie-muet); margin-bottom: 14px; }
+.card .ball-text { font-size: 16px; line-height: 1.62; }
+.card .ball-text p { margin: 0 0 0.8em; }
+
+/* specs / comprendre votre balle */
+.specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin: 16px 0 0; }
+.spec { background: var(--charbon); border-radius: var(--radius-sm); padding: 10px 12px; }
+.spec .k { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--craie-faible); }
+.spec .v { font-size: 14px; margin-top: 2px; }
+
+.encadre { margin-top: 16px; border-left: 2px solid var(--signal); border-radius: 0; padding: 12px 0 12px 16px; }
+.encadre .k { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--signal); }
+.encadre .v { font-size: 14.5px; color: var(--craie-muet); margin-top: 6px; }
+
+.aspiration { font-size: 14px; color: var(--craie-muet); font-style: italic; margin-top: 10px; }
+
+.option-a { background: var(--charbon-2); border: 0.5px dashed var(--trait-fort); border-radius: var(--radius); padding: 20px 24px; }
+
+/* Bloc « aller plus loin » (séparé du fitting) */
+.aller-plus-loin { margin-top: 40px; border-top: 0.5px solid var(--trait); padding-top: 28px; }
+
+/* =============================================================================
+   Pied de page
+   ============================================================================= */
+.site-footer { border-top: 0.5px solid var(--trait); margin-top: 64px; padding: 36px 0 48px; color: var(--craie-muet); font-size: 13.5px; }
+.site-footer a { color: var(--craie-muet); }
+.site-footer a:hover { color: var(--craie); }
+.site-footer .cols { display: flex; flex-wrap: wrap; gap: 28px 48px; justify-content: space-between; }
+.site-footer .sources { font-size: 12px; color: var(--craie-faible); margin-top: 24px; line-height: 1.6; }
+
+/* Éditorial (éducatif / à propos) */
+.prose { max-width: 680px; }
+.prose p { font-size: 17px; line-height: 1.75; color: #DAD9D3; }
+.prose h2 { margin-top: 40px; }
+.prose h3 { margin-top: 30px; color: var(--craie); }
+.prose .byline { font-family: var(--font-mono); font-size: 13px; color: var(--craie-muet); margin-bottom: 28px; }
+.bignum { font-family: var(--font-mono); font-weight: 600; color: var(--signal); }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
