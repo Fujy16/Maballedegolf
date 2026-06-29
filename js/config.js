@@ -24,9 +24,9 @@ export const EMAIL_CONFIG = {
 // Liens vers les offres d'Amaury — à remplir plus tard (page À propos, e-mails,
 // encart « aller plus loin »). Laisser vide masque les liens correspondants.
 export const PRODUITS = {
-  coaching: "",   // ex. https://azurgolfcoaching.fr
-  zone54: "",     // ex. centre indoor Zone 54
-  guides: "",     // ex. guide PDF
+  coaching: "",                       // ex. https://www.azurgolfcoaching.fr (à confirmer)
+  zone54: "https://www.zone54.fr",    // centre de golf indoor à Mougins
+  guides: "",                         // ex. guide PDF
 };
 
 export const SITE = {
