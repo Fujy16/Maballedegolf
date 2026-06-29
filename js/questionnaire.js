@@ -340,7 +340,7 @@ function renderResults(r, registre) {
 
       <div class="aller-plus-loin">
         <p class="muet" style="font-size:14px">Pourquoi ces balles et pas une autre ? <a href="educatif.html" style="color:var(--signal)">Comprendre comment la balle change votre jeu →</a></p>
-        <p class="muet" style="font-size:14px;margin-top:10px">Envie de progresser au-delà de la balle ? Retrouvez Amaury à <a href="https://www.zone54.fr" target="_blank" rel="noopener" style="color:var(--signal)">Zone 54</a>, son centre de golf indoor à Mougins.</p>
+        <p class="muet" style="font-size:14px;margin-top:10px">Envie de progresser au-delà de la balle ? Retrouvez Amaury à <a href="https://www.zone54.fr" target="_blank" rel="noopener" style="color:var(--signal)">Zone 54</a>, son centre de golf indoor à Mougins, et sur Instagram <a href="https://www.instagram.com/amaurydumas_off" target="_blank" rel="noopener" style="color:var(--signal)">@amaurydumas_off</a>.</p>
         <div style="margin-top:18px"><button class="btn btn-ghost" id="refaire">↺ Refaire le test</button></div>
       </div>
     </div>`;

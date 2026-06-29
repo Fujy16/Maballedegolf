@@ -169,7 +169,7 @@ function emailHtml(recoIds, registre, conflit) {
     &nbsp;&nbsp;<a href="${SITE_URL}/educatif.html" style="color:#C2431F;font-size:14px">Pourquoi la balle compte ?</a>
   </td></tr>
   <tr><td style="background:#f4f2ec;padding:18px 24px;font-size:12px;line-height:1.6;color:#8a8a82">
-    Envie d'aller plus loin ? Retrouvez Amaury à <a href="https://www.zone54.fr" style="color:#C2431F">Zone 54</a>, son centre de golf indoor à Mougins.<br><br>
+    Envie d'aller plus loin ? Retrouvez Amaury à <a href="https://www.zone54.fr" style="color:#C2431F">Zone 54</a>, son centre de golf indoor à Mougins, et sur Instagram <a href="https://www.instagram.com/amaurydumas_off" style="color:#C2431F">@amaurydumas_off</a>.<br><br>
     Vous recevez cet e-mail car vous avez demandé vos fiches sur maballedegolf.com.
     Pour ne plus en recevoir, écrivez à <a href="mailto:amaurydumasjarousse@azurgolfcoaching.fr" style="color:#C2431F">amaurydumasjarousse@azurgolfcoaching.fr</a>.<br>
     © Ma Balle de Golf — Amaury Dumas-Jarousse, enseignant de golf indépendant.

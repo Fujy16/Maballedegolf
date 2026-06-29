@@ -32,5 +32,6 @@ export const PRODUITS = {
 export const SITE = {
   auteur: "Amaury Dumas-Jarousse",
   role: "Enseignant de golf indépendant",
-  email: "",      // adresse de contact affichée (À propos / confidentialité)
+  email: "amaurydumasjarousse@azurgolfcoaching.fr",
+  instagram: "https://www.instagram.com/amaurydumas_off",
 };
