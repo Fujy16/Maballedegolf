@@ -16,7 +16,7 @@
 
 export const EMAIL_CONFIG = {
   service: "brevo",
-  enabled: false,             // passera à true une fois Brevo + Vercel configurés
+  enabled: true,              // Brevo branché (opt-in simple ; DOI ajoutable plus tard)
   endpoint: "/api/subscribe", // relais serverless Vercel (api/subscribe.js)
   doubleOptIn: true,          // toujours true (conformité RGPD)
 };
