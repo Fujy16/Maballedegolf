@@ -49,6 +49,8 @@ export function initEmail(slot, reco, profil) {
       double_opt_in: EMAIL_CONFIG.doubleOptIn,
       ts: new Date().toISOString(),
       reco: reco ? [reco.ideale, reco.alternative, reco.malin].filter(Boolean).map((b) => b.id) : [],
+      conflit: reco ? Boolean(reco.conflit) : false,
+      registre: profil && profil.niveau === "conf" ? "confirme" : "debutant",
       profil: profil || {},
     };
 
